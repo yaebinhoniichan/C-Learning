@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+//Hàm xả nén
+string decompressString(const string& str) {
+    string result;
+    for (size_t i = 0; i < str.length(); i++) {
+        char ch = str[i];
+        string numStr;
+        while (i + 1 < str.length() && isdigit(str[i + 1])) {
+            numStr += str[++i];
+        }
+        int count = stoi(numStr);
+        result.append(count, ch);
+    }
+    return result;
+}
+int main() {
+    string input;
+    cout << "Nhap chuoi da nen: ";
+    cin >> input;
+    cout << "Sau khi xa nen: " << decompressString(input) << endl;
+    return 0;
+}
