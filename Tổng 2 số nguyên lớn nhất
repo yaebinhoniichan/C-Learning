@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+// Hàm cộng 2 số lớn dưới dạng chuỗi
+string addBigNumbers(string a, string b) {
+    // Đảm bảo a là chuỗi dài hơn
+    if (a.length() < b.length())
+        swap(a, b);
+
+    // Đảo ngược chuỗi để cộng từ cuối lên (giống như cộng tay)
+    reverse(a.begin(), a.end());
+    reverse(b.begin(), b.end());
+
+    string result = "";
+    int carry = 0; // Biến nhớ
+
+    for (size_t i = 0; i < a.length(); ++i) {
+        int digitA = a[i] - '0';
+        int digitB = (i < b.length()) ? b[i] - '0' : 0;
+        int sum = digitA + digitB + carry;
+
+        result += (sum % 10) + '0';  // Lấy chữ số hàng đơn vị
+        carry = sum / 10;            // Lưu phần nhớ
+    }
+
+    if (carry)
+        result += carry + '0';
+
+    // Đảo ngược lại kết quả
+    reverse(result.begin(), result.end());
+    return result;
+}
+
+int main() {
+    string a, b;
+    cin >> a >> b;
+
+    string sum = addBigNumbers(a, b);
+    cout << sum << endl;
+
+    return 0;
+}
