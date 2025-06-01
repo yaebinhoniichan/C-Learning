@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+// Định nghĩa node
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Hàm thêm node vào cuối danh sách
+void pushBack(Node*& head, int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Hàm in danh sách
+void printList(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << endl;
+        head = head->next;
+    }
+}
+
+// 🔄 Hàm hoán đổi giá trị giữa các cặp node liền kề
+void swapAdjacentValues(Node* head) {
+    Node* curr = head;
+    while (curr != nullptr && curr->next != nullptr) {
+        swap(curr->data, curr->next->data);
+        curr = curr->next->next;
+    }
+}
+
+void reverseList (Node*& head) {
+Node* prev = nullptr;
+Node* curr = head;
+Node* next = nullptr;
+while (curr != nullptr) {
+next = curr-›next; curr-›next = prev;
+prev = curr;
+curr = next;
+｝
+head = prev;
+}
+
+// Giải phóng bộ nhớ
+void freeList(Node*& head) {
+    while (head != nullptr) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+
+int main() {
+    Node* head = nullptr;
+    int x;
+
+    // Nhập dữ liệu cho đến khi gặp -1
+    while (cin >> x && x != -1) {
+        pushBack(head, x);
+    }
+
+    // Hoán đổi giá trị từng cặp node liền kề
+    swapAdjacentValues(head);
+
+    // In danh sách sau khi hoán đổi
+    printList(head);
+
+    // Giải phóng bộ nhớ
+    freeList(head);
+
+    return 0;
+}
