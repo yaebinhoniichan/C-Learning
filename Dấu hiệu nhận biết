@@ -1,0 +1,30 @@
+#include <iostream>   // Thư viện để nhập xuất dữ liệu (cin, cout)
+#include <string>     // Thư viện xử lý chuỗi (string)
+using namespace std;
+
+// Hàm kiểm tra xem một số (dưới dạng chuỗi) có chia hết cho 3 không
+bool isDivisibleBy3(const string& number) {
+    int sum = 0; // Biến lưu tổng các chữ số
+
+    // Duyệt từng ký tự trong chuỗi
+    for (char digit : number) {
+        if (isdigit(digit)) // Kiểm tra xem ký tự có phải là chữ số không
+            sum += digit - '0'; // Chuyển từ ký tự sang số và cộng vào tổng
+    }
+
+    // Nếu tổng chia hết cho 3 => trả về true
+    return (sum % 3 == 0);
+}
+
+int main() {
+    string number;
+    cin >> number; // Nhập số (dưới dạng chuỗi, để xử lý cả số rất dài)
+
+    // Gọi hàm kiểm tra và in ra kết quả
+    if (isDivisibleBy3(number))
+        cout << "Yes" << endl; // Nếu chia hết cho 3 thì in Yes
+    else
+        cout << "No" << endl;  // Nếu không chia hết thì in No
+
+    return 0;
+}
